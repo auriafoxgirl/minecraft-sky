@@ -11,8 +11,13 @@ vec3 getNormal() {
 	pos = gbufferProjectionInverse * pos;
    return normalize((gbufferModelViewInverse * pos).rgb);
 }
-
-#if SKY_COLOR == 3
+#if SKY_COLOR == 4
+   vec3 getSky() {
+      vec3 normal = getNormal();
+      return mix(vec3(0.949, 0.937, 0.941), vec3(0.239, 0.239, 0.239));
+   }
+   vec3 getClouds() { return vec3(1.0); }
+#elif SKY_COLOR == 3
    vec3 getSky() {
       vec3 normal = getNormal();
       float t = clamp(normal.x + 0.5, 0.0, 1.0);
